@@ -60,3 +60,28 @@ ax = count_per_year.plot(figsize= (8,6))
 ax.set_xlabel("years")
 ax.set_ylabel("#movies")
 plt.show()
+
+#to find avarage imbd score per year
+avgscores = data.groupby("title_year")['imdb_score'].mean()
+ax = avgscores.plot.bar(figsize = (18,8), title = "Avarage Imdb Score per year")
+ax.set_ylabel("Avg Scores")
+plt.show()
+
+#finding maximum spent movie budget for year
+data.groupby("title_year")['movie_budget'].sum().plot()
+plt.show()
+
+#Checking any relationship between IMdb scoec of a movie and movie income
+data_q4 = data[['imdb_score' , "movie_income"]]
+
+
+#dropping the rows with non values
+data_q4.dropna(inplace = True)
+print(data_q4)
+
+#create a scatter plot to see tha data
+data_q4.plot.scatter(x="movie_income" , y ="imdb_score", figsize=(10,10))
+plt.show()
+
+#genarate the correlation matrix
+print(data_q4.corr())
